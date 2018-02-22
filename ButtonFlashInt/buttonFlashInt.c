@@ -10,7 +10,7 @@
 #include "buttonFlashInt.h"
 
 int stateTable[2][3] = {{1,0,1},
-{2,2,0}};
+						{2,2,0}};
 
 //lights are off
 void off() {
@@ -30,8 +30,11 @@ void rotate() {
 		PORTF |= 0x1;
 		delay(1000);
 		PORTF &= 0xf0;
-		if(state != 1)
-		return;
+		if(button0pressed) {
+			button0pressed = 0;
+			state = stateTable[0][state];
+			return;
+		}
 		
 		PORTF |= 0x2;
 		delay(1000);
@@ -73,56 +76,16 @@ void flash() {
 
 void delay(unsigned int msec) {
 	
-	int pins;
 	unsigned int count = msec / 5;
 	int done = 0;
 	int bothPressed = 0;
 	
 	while(!done) {
-		pins = (PINF >> 6) & 0x3;
-		switch (pins) {
-			case 0x3: //no buttons pressed
-			while((count > 0) && (0x3 == ((PINF >> 6) & 0x3))) {
-				_delay_ms(5);
-				count--;
-			}
-			break;
-			
-			case 0x2: //button0 pressed
-			while((count > 0) && (0x2 == ((PINF >> 6) & 0x3))) {
-				_delay_ms(5);
-				count--;
-			}
-			if((0x3 == ((PINF >> 6) & 0x3)) || (bothPressed && (0x2 == ((PINF >> 6) & 0x3)))) { //button0 released
-				if(bothPressed)
-				state = stateTable[1][state];
-				else
-				state = stateTable[0][state];
-				done = 1;
-			}
-			break;
-			
-			case 0x1: //button1 pressed
-			for(; ((count > 0) && (0x1 == ((PINF >> 6) & 0x3))); count--) {
-				_delay_ms(5);
-			}
-			if((0x3 == ((PINF >> 6) & 0x3)) || (bothPressed && (0x1 == ((PINF >> 6) & 0x3)))) { //button1 released
-				if(bothPressed)
-				state = stateTable[0][state];
-				else
-				state = stateTable[1][state];
-				done = 1;
-			}
-			break;
-			
-			case 0x0: //both buttons pressed
-			bothPressed = 1;
-			for(; ((count > 0) && (0x0 == ((PINF >> 6) & 0x3))); count--) {
-				_delay_ms(5);
-			}
-			break;
+		while((count > 0) && (!(button0pressed || button1pressed))) {
+			_delay_ms(5);
+			count--;	
 		}
-		if(count == 0)
-		done = 1;
+		if(count == 0 || button0pressed || button1pressed)
+			done = 1;
 	}
 }

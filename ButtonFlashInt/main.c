@@ -14,8 +14,15 @@
 int main(void)
 {
 	DDRF = 0x0f;
+	DDRK = 0x3;
+	
+	PCICR = 0x4;
+	PORTK = 0x3;
 	PORTF |= 0xc0;
+	
 	state = 0;
+	button0pressed = 0;
+	button1pressed = 0;
 	
     while (1) 
     {
@@ -33,7 +40,10 @@ int main(void)
     }
 }
 
-ISR(PCINT0_vect) {
-	// your interrupt handler code
+ISR(PCINT16) {
+	button0pressed = 1;
+}
+ISR(PCINT17) {
+	button1pressed = 1;	
 }
 

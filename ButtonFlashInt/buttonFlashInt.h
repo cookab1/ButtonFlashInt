@@ -10,14 +10,13 @@
 #define BUTTONFLASH_H_
 
 int state;
-int button;
+volatile int button0pressed;
+volatile int button1pressed;
 
 void off();
 void rotate();
 void flash();
 
-
-void delay_usec(unsigned int);
 void delay(unsigned int);
 
 
