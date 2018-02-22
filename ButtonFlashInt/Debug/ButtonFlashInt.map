@@ -215,7 +215,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x388
+.text           0x00000000      0x390
  *(.vectors)
  .vectors       0x00000000       0xe4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega2560/avr6/crtatmega2560.o
                 0x00000000                __vector_default
@@ -346,16 +346,16 @@ END GROUP
  .text.main     0x000002a0       0x6a main.o
                 0x000002a0                main
  .text.__vector_11
-                0x0000030a       0x5c main.o
+                0x0000030a       0x64 main.o
                 0x0000030a                __vector_11
  .text.libgcc.mul
-                0x00000366       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_umulhisi3.o)
-                0x00000366                __umulhisi3
-                0x00000384                . = ALIGN (0x2)
+                0x0000036e       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000036e                __umulhisi3
+                0x0000038c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000384        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
-                0x00000384                _exit
-                0x00000384                exit
+ .fini9         0x0000038c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+                0x0000038c                _exit
+                0x0000038c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -374,11 +374,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000384        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .fini0         0x0000038c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000388                _etext = .
+                0x00000390                _etext = .
 
-.data           0x00800200        0xc load address 0x00000388
+.data           0x00800200        0xc load address 0x00000390
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -406,8 +406,8 @@ END GROUP
                 0x00800214                button1pressed
                 0x00800216                buttonPressed
                 0x00800218                PROVIDE (__bss_end, .)
-                0x00000388                __data_load_start = LOADADDR (.data)
-                0x00000394                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000390                __data_load_start = LOADADDR (.data)
+                0x0000039c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800218        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -501,24 +501,24 @@ END GROUP
  .debug_abbrev  0x00000b1a      0x17c buttonFlashInt.o
  .debug_abbrev  0x00000c96       0xc6 main.o
 
-.debug_line     0x00000000      0x5e9
+.debug_line     0x00000000      0x5f5
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x1f9 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_line    0x000001f9      0x28f buttonFlashInt.o
- .debug_line    0x00000488      0x161 main.o
+ .debug_line    0x00000488      0x16d main.o
 
 .debug_frame    0x00000000       0xac
  *(.debug_frame)
  .debug_frame   0x00000000       0x64 buttonFlashInt.o
  .debug_frame   0x00000064       0x48 main.o
 
-.debug_str      0x00000000      0x61d
+.debug_str      0x00000000      0x66d
  *(.debug_str)
  .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .debug_str     0x000003e6      0x21a buttonFlashInt.o
                                 0x24e (size before relaxing)
- .debug_str     0x00000600       0x1d main.o
-                                0x1d4 (size before relaxing)
+ .debug_str     0x00000600       0x6d main.o
+                                0x1da (size before relaxing)
 
 .debug_loc      0x00000000       0xc7
  *(.debug_loc)
