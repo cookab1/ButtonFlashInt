@@ -13,6 +13,8 @@ static int state;
 volatile int button0pressed;
 volatile int button1pressed;
 volatile int bothPressed;
+int button0;
+int button1;
 
 void off();
 void rotate();
