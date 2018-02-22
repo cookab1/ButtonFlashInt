@@ -71,16 +71,16 @@ void flash() {
 }
 
 int checkButton() {
-	if(button0pressed || button1pressed) {
+	PORTF |= 1;
+	if(button0pressed) {// || button1pressed) {
 		if(button0pressed) {
 			button0pressed = 0;
 			state = stateTable[0][state];
-			return 1;
-			} else {
+		} else {
 			button1pressed = 0;
 			state = stateTable[1][state];
-			return 1;
 		}
+		return 1;
 	}
 	return 0;
 }

@@ -26,6 +26,8 @@ int main(void)
 	button0pressed = 0;
 	button1pressed = 0;
 	bothPressed = 0;
+	button0 = 0;
+	button1 = 0;
 	
     while (1) 
     {
@@ -43,6 +45,36 @@ int main(void)
     }
 }
 
+ISR(PCINT2_vect) {
+	switch(PINK & 0x3) {
+		case 0x3:				//button released
+			if(button0) {		//if button0 released
+				PORTF &= 0;
+				button0 = 0;
+				button0pressed = 1;
+			} else {			//else button1 was released
+				PORTF &= 0;
+				button1 = 0;
+				button1pressed = 1;
+			}
+			break;
+		case 0x2:			//button0 pressed
+			PORTF |= 0xf;
+			button0 = 1;
+			break;
+		case 0x1:			//button1 pressed
+			PORTF |= 0xf;
+			button1 = 1;
+			break;
+		case 0x0:			//both are pressed
+			bothPressed = 1;
+			button1 = 1;
+			button0 = 1;
+			break;
+	}
+}
+
+/*
 ISR(PCINT2_vect) {
 	if(bothPressed) {
 		bothPressed = 0;
@@ -79,9 +111,9 @@ ISR(PCINT2_vect) {
 				break;
 			case 0x0:			//both are pressed
 				bothPressed = 1;
-				button1 = 1;
 				button0 = 1;
+				button1 = 1;
 				break;
 		}
 	}
-}
+}*/
