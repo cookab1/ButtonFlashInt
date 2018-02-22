@@ -19,8 +19,8 @@ void off() {
 	
 	while(1) {
 		delay(1000);
-		if(state != 0)
-		return;
+		if(checkButton())
+			return;
 	}
 }
 
@@ -30,29 +30,26 @@ void rotate() {
 		PORTF |= 0x1;
 		delay(1000);
 		PORTF &= 0xf0;
-		if(button0pressed) {
-			button0pressed = 0;
-			state = stateTable[0][state];
+		if(checkButton())
 			return;
-		}
 		
 		PORTF |= 0x2;
 		delay(1000);
 		PORTF &= 0xf0;
-		if(state != 1)
-		return;
+		if(checkButton())
+			return;
 		
 		PORTF |= 0x4;
 		delay(1000);
 		PORTF &= 0xf0;
-		if(state != 1)
-		return;
+		if(checkButton())
+			return;
 		
 		PORTF |= 0x8;
 		delay(1000);
 		PORTF &= 0xf0;
-		if(state != 1)
-		return;
+		if(checkButton())
+			return;
 	}
 }
 
@@ -60,25 +57,38 @@ void rotate() {
 void flash() {
 	//decrement counter 40 for 200 ms
 	while(1) {
-		PORTF |= 0x0f;
-		delay(200);
-		if(state != 2) {
-			PORTF &= 0xf0;
+		PORTF |= 0x0f;  //turn lights on
+		delay(200);		//turn lights off
+		PORTF &= 0xf0;
+		if(checkButton()) {
 			return;
 		}
-		PORTF &= 0xf0;
 		delay(1000);
-		if(state != 2) {
+		if(checkButton()) {
 			return;
 		}
 	}
+}
+
+int checkButton() {
+	if(button0pressed || button1pressed) {
+		if(button0pressed) {
+			button0pressed = 0;
+			state = stateTable[0][state];
+			return 1;
+			} else {
+			button1pressed = 0;
+			state = stateTable[1][state];
+			return 1;
+		}
+	}
+	return 0;
 }
 
 void delay(unsigned int msec) {
 	
 	unsigned int count = msec / 5;
 	int done = 0;
-	int bothPressed = 0;
 	
 	while(!done) {
 		while((count > 0) && (!(button0pressed || button1pressed))) {

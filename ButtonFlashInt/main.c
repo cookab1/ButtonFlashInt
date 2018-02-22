@@ -13,16 +13,20 @@
 
 int main(void)
 {
+	sei(); //set global interrupt enable
 	DDRF = 0x0f;
-	DDRK = 0x3;
+	DDRK = 0x0;
+	PCMSK2 = 0x3;
 	
-	PCICR = 0x4;
 	PORTK = 0x3;
-	PORTF |= 0xc0;
+	PCICR = 0x4;
+	PORTF &= 0x0;
 	
 	state = 0;
 	button0pressed = 0;
 	button1pressed = 0;
+	buttonPressed = 0;
+	bothPressed = 0;
 	
     while (1) 
     {
@@ -40,10 +44,12 @@ int main(void)
     }
 }
 
-ISR(PCINT16) {
-	button0pressed = 1;
-}
-ISR(PCINT17) {
-	button1pressed = 1;	
+ISR(PCINT2_vect) {
+	if((PINK & 0x3) == 0x2) //if button 0 was pressed // || ((PINK & 0x3) == 0x1)
+		buttonPressed = 1;
+	else if(((PINK & 0x3) == 0x3) && buttonPressed) {
+		buttonPressed = 1;
+		PORTF &= 0xf; //turn lights on
+	}
 }
 
