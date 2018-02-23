@@ -19,8 +19,9 @@ void off() {
 	
 	while(1) {
 		delay(1000);
-		if(checkButton())
+		if(checkButton()) {
 			return;
+		}
 	}
 }
 
@@ -71,8 +72,8 @@ void flash() {
 }
 
 int checkButton() {
-	PORTF |= 1;
-	if(button0pressed) {// || button1pressed) {
+	//PORTF |= 1;
+	if(button0pressed || button1pressed) {
 		if(button0pressed) {
 			button0pressed = 0;
 			state = stateTable[0][state];

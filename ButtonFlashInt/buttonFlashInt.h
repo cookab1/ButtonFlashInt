@@ -9,7 +9,7 @@
 #ifndef BUTTONFLASH_H_
 #define BUTTONFLASH_H_
 
-static int state;
+volatile int state;
 volatile int button0pressed;
 volatile int button1pressed;
 volatile int bothPressed;
